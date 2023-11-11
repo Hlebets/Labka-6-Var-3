@@ -9,10 +9,9 @@ from classes import (
     save_game,
     load_game,
 )
-import random
-import json
 
 hero = Hero(20, 7)
+battle_event = BattleEvent(hero)
 event = None
 completed_events = 0
 
@@ -40,7 +39,7 @@ while True:
                 elif event_type == "FortuneTeller":
                     event = FortuneTellerEvent()
                 elif event_type == "Battle":
-                    event = BattleEvent()
+                    event = BattleEvent(hero)
 
                 if event is not None:
                     event.interact()
@@ -76,7 +75,7 @@ while True:
                 elif event_type == "FortuneTeller":
                     event = FortuneTellerEvent()
                 elif event_type == "Battle":
-                    event = BattleEvent()
+                    event = BattleEvent(hero)
 
                 if event is not None:
                     event.interact()

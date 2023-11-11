@@ -55,15 +55,13 @@ class FortuneTellerEvent:
         print(self.description)
         print(random.choice(self.phrase))
 
-
 class BattleEvent:
-    def __init__(self):
+    def __init__(self, hero):
         self.description = "You have met an enemy"
-
+        self.hero = hero
     def interact(self):
         print(self.description)
         enemy = Enemy(random.randint(5, 10), random.randint(2, 5))
-        hero = Hero(20, 7)
         while True:
             print("1. Fight")
             print("2. Run")
@@ -71,8 +69,8 @@ class BattleEvent:
             action_input = input("Enter your choice: ")
 
             if action_input == "1":
-                hero.take_damage(random.randint(0, enemy.damage))
-                enemy.take_damage(random.randint(0, hero.damage))
+                enemy.take_damage(random.randint(0, self.hero.damage))
+                self.hero.take_damage(random.randint(0, enemy.damage))
                 if enemy.health <= 0:
                     print("Enemy defeated!")
                     break
@@ -80,9 +78,8 @@ class BattleEvent:
                 print("You ran away.")
                 break
             elif action_input == "3":
-                print(
-                    f"Hero stats: {hero.show_stats()}"
-                )
+                print("Hero stats:")
+                self.hero.show_stats()
             else:
                 print("Invalid choice. Please enter 1, 2, or 3.")
 
