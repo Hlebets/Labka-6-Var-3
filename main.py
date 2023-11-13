@@ -1,101 +1,37 @@
-import random
-from tkinter import N
+from random import randint
 from classes import (
-    NothingEvent,
-    FortuneTellerEvent,
     BattleEvent,
     Hero,
-    Enemy,
-    save_game,
+    game_loop,
     load_game,
 )
 
-hero = Hero(20, 7)
-battle_event = BattleEvent(hero)
 event = None
 completed_events = 0
+hero = Hero(health=20, damage=7)
 
 while True:
-    print("Small World - A small text RPG game")
+    print("\nSmall World - A small text RPG game")
     print("1. Start New Game")
     print("2. Continue")
     print("q. Exit")
     main_menu_input = input("Enter your choice: ")
 
     if main_menu_input == "1":
-        print("New Game starts now!")
+        print("\nNew Game starts now!")
+        game_loop(hero, completed_events)
 
-        while True:
-            print("1. Go Somewhere")
-            print("2. Open Stats")
-            print("3. Save game and return to main menu")
-            action_input = input("Enter your choice: ")
-
-            if action_input == "1":
-                print("You are going in a chosen direction")
-                event_type = random.choice(["Nothing", "FortuneTeller", "Battle"])
-                if event_type == "Nothing":
-                    event = NothingEvent()
-                elif event_type == "FortuneTeller":
-                    event = FortuneTellerEvent()
-                elif event_type == "Battle":
-                    event = BattleEvent(hero)
-
-                if event is not None:
-                    event.interact()
-                    completed_events += 1
-
-            elif action_input == "2":
-                print("\nYou have opened stats")
-                hero.show_stats()
-                print(f"You have completed {completed_events} events")
-
-            elif action_input == "3":
-                print("Saving game...")
-                save_game(hero, completed_events)
-                break
-
-            else:
-                print("Invalid choice. Please enter 1, 2, or 3.")
     elif main_menu_input == "2":
-        print("Continue")
-        load_game()
-
-        while True:
-            print("1. Go Somewhere")
-            print("2. Open Stats")
-            print("3. Save game and return to main menu")
-            action_input = input("Enter your choice: ")
-
-            if action_input == "1":
-                print("You are going in a chosen direction")
-                event_type = random.choice(["Nothing", "FortuneTeller", "Battle"])
-                if event_type == "Nothing":
-                    event = NothingEvent()
-                elif event_type == "FortuneTeller":
-                    event = FortuneTellerEvent()
-                elif event_type == "Battle":
-                    event = BattleEvent(hero)
-
-                if event is not None:
-                    event.interact()
-                    completed_events += 1
-
-            elif action_input == "2":
-                print("\nYou have opened stats")
-                hero.show_stats()
-                print(f"You have completed {completed_events} events")
-
-            elif action_input == "3":
-                print("Saving game...")
-                save_game(hero, completed_events)
-                break
-
-            else:
-                print("Invalid choice. Please enter 1, 2, or 3.")
+        print("\nContinue")
+        try:
+            load_game()
+        except:
+            print("No save file found")
+        hero, completed_events = load_game()
+        game_loop(hero, completed_events)
 
     elif main_menu_input == "q":
-        print("Exit")
+        print("\nExit")
         break
 
     else:
