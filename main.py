@@ -1,6 +1,4 @@
-from random import randint
 from classes import (
-    BattleEvent,
     Hero,
     game_loop,
     load_game,
@@ -25,10 +23,10 @@ while True:
         print("\nContinue")
         try:
             load_game()
-        except:
+            hero, completed_events = load_game()
+            game_loop(hero, completed_events)
+        except Exception:
             print("No save file found")
-        hero, completed_events = load_game()
-        game_loop(hero, completed_events)
 
     elif main_menu_input == "q":
         print("\nExit")

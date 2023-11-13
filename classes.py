@@ -69,6 +69,10 @@ class BattleEvent:
         print(self.description)
         enemy = Enemy(random.randint(5, 10), random.randint(2, 5))
         while True:
+            if self.hero.health <= 0:
+                print("Game over, hero is dead. \nReturning to main menu...")
+                delete_save()
+                break
             print("1. Fight")
             print("2. Run")
             print("3. Open Stats")
