@@ -13,7 +13,6 @@ class Hero:
         self.health -= damage
         if self.health <= 0:
             self.health = 0
-            print("Hero is dead")
         else:
             print(f"Hero takes {damage} damage and has {self.health} HP left.")
 
@@ -30,14 +29,13 @@ class Enemy:
         self.health -= damage
         if self.health <= 0:
             self.health = 0
-            print("Enemy is defeated")
         else:
-            print(f"Enemy takes {damage} damage and has {self.health} HP left.")
+            print(f"\nEnemy takes {damage} damage and has {self.health} HP left.")
 
 
 class NothingEvent:
     def __init__(self):
-        self.description = "Nothing special happened during this trip"
+        self.description = "\nNothing special happened during this trip"
         self.location = ["You have visited a forest", "You have visited a cave"]
 
     def interact(self):
@@ -73,7 +71,7 @@ class BattleEvent:
                 print("Game over, hero is dead. \nReturning to main menu...")
                 delete_save()
                 break
-            print("1. Fight")
+            print("\n1. Fight")
             print("2. Run")
             print("3. Open Stats")
             action_input = input("Enter your choice: ")
@@ -115,7 +113,6 @@ def game_loop(hero, completed_events):
                 event.interact()
                 completed_events += 1
             if hero.health <= 0:
-                print("Game over, hero is dead. \nReturning to main menu...")
                 delete_save()
                 break
 
@@ -125,7 +122,7 @@ def game_loop(hero, completed_events):
             print(f"You have completed {completed_events} events")
 
         elif action_input == "3":
-            print("Saving game...")
+            print("\nSaving game...")
             save_game(hero, completed_events)
             break
 

@@ -6,7 +6,6 @@ from classes import (
 
 event = None
 completed_events = 0
-hero = Hero(health=20, damage=7)
 
 while True:
     print("\nSmall World - A small text RPG game")
@@ -17,6 +16,7 @@ while True:
 
     if main_menu_input == "1":
         print("\nNew Game starts now!")
+        hero = Hero(health=20, damage=7)
         game_loop(hero, completed_events)
 
     elif main_menu_input == "2":
@@ -26,7 +26,7 @@ while True:
             hero, completed_events = load_game()
             game_loop(hero, completed_events)
         except Exception:
-            print("No save file found")
+            print("\nNo save file found")
 
     elif main_menu_input == "q":
         print("\nExit")
