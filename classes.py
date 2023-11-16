@@ -14,10 +14,14 @@ class Hero:
         if self.health <= 0:
             self.health = 0
         else:
-            print(f"Hero takes {damage} damage and has {self.health} HP left.")
+            print(
+                f"Герой отримує {damage} одиниць шкоди та його здоров'я складає {self.health} одиниць"
+            )
 
     def show_stats(self):
-        print(f"Hero has {self.health} health and {self.damage} damage.")
+        print(
+            f"Герой має {self.health} одиниць здоров'я та {self.damage} одиниць шкоди"
+        )
 
 
 class Enemy:
@@ -30,13 +34,15 @@ class Enemy:
         if self.health <= 0:
             self.health = 0
         else:
-            print(f"\nEnemy takes {damage} damage and has {self.health} HP left.")
+            print(
+                f"\n Ворог отримує {damage} одиниць шкоди та його здоров'я складає {self.health} одиниць"
+            )
 
 
 class NothingEvent:
     def __init__(self):
-        self.description = "\nNothing special happened during this trip"
-        self.location = ["You have visited a forest", "You have visited a cave"]
+        self.description = "\nНічого особливого чи визначного не сталося"
+        self.location = ["Тим часом ви відвідали ліс", "Тим часом ви відвідали печеру"]
 
     def interact(self):
         print(self.description)
@@ -45,12 +51,12 @@ class NothingEvent:
 
 class FortuneTellerEvent:
     def __init__(self):
-        self.description = "You met a fortune teller"
+        self.description = "Ви зустріли віщуна"
         self.phrase = [
-            "You will be rich",
-            "You will be poor",
-            "You will be happy",
-            "You will be sad",
+            "Ви будете багатим",
+            "Ви будете бідним",
+            "Ви будете щасливі",
+            "Ви будете сумні",
         ]
 
     def interact(self):
@@ -60,7 +66,7 @@ class FortuneTellerEvent:
 
 class BattleEvent:
     def __init__(self, hero):
-        self.description = "You have met an enemy"
+        self.description = "Ви зустріли ворога"
         self.hero = hero
 
     def interact(self):
@@ -68,39 +74,39 @@ class BattleEvent:
         enemy = Enemy(random.randint(5, 10), random.randint(2, 5))
         while True:
             if self.hero.health <= 0:
-                print("Game over, hero is dead. \nReturning to main menu...")
+                print("Гру завершено. Герой загинув. \nПовернення до головного меню...")
                 delete_save()
                 break
-            print("\n1. Fight")
-            print("2. Run")
-            print("3. Open Stats")
-            action_input = input("Enter your choice: ")
+            print("\n1. Битися")
+            print("2. Втікти")
+            print("3. Відкрити статистику")
+            action_input = input("Введіть значення для вибору дії: ")
 
             if action_input == "1":
                 enemy.take_damage(random.randint(0, self.hero.damage))
                 self.hero.take_damage(random.randint(0, enemy.damage))
                 if enemy.health <= 0:
-                    print("Enemy defeated!")
+                    print("Ворога переможено!")
                     break
             elif action_input == "2":
-                print("You ran away.")
+                print("Ви втікли")
                 break
             elif action_input == "3":
-                print("Hero stats:")
+                print("Статистика героя:")
                 self.hero.show_stats()
             else:
-                print("Invalid choice. Please enter 1, 2, or 3.")
+                print("Неправильний вибір. Будь ласка, введіть 1, 2 або q")
 
 
 def game_loop(hero, completed_events):
     while True:
-        print("1. Go Somewhere")
-        print("2. Open Stats")
-        print("3. Save game and return to main menu")
-        action_input = input("Enter your choice: ")
-
+        print("1. Піти кудись")
+        print("2. Відкрити статистику")
+        print("3. Зберегти гру та повернутися до головного меню")
+        action_input = input("Введіть значення для вибору дії: ")
+        event = None
         if action_input == "1":
-            print("You are going in a chosen direction")
+            print("Ви пішли у невідомому напрямку")
             event_type = random.choice(["Nothing", "FortuneTeller", "Battle"])
             if event_type == "Nothing":
                 event = NothingEvent()
@@ -117,17 +123,17 @@ def game_loop(hero, completed_events):
                 break
 
         elif action_input == "2":
-            print("\nYou have opened stats")
+            print("\nВи відкрили статистику")
             hero.show_stats()
-            print(f"You have completed {completed_events} events")
+            print(f"Ви пройшли {completed_events} подій")
 
         elif action_input == "3":
-            print("\nSaving game...")
+            print("\nЗбереження гри...")
             save_game(hero, completed_events)
             break
 
         else:
-            print("Invalid choice. Please enter 1, 2, or 3.")
+            print("Неправильний вибір. Будь ласка, введіть 1, 2 або q")
 
 
 def save_game(hero, completed_events):
